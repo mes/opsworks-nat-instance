@@ -1,1 +1,1 @@
-@reboot /etc/nat_monitor.sh >> /var/log/nat_monitor/nat_monitor.log
+@reboot root /etc/nat_monitor.sh >> /var/log/nat_monitor/nat_monitor.log

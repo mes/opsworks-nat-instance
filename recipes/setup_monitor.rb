@@ -22,7 +22,7 @@ end
 
 # Copy root crontab into place
 cookbook_file "root_crontab" do
-  path "/var/spool/cron/root"
+  path "/etc/cron.d/nat_monitor"
   action :create
   owner "root"
   group "root"
