@@ -17,50 +17,5 @@
 # limitations under the License.
 #
 
-
-# Copy root crontab into place
-cookbook_file "root_crontab" do
-  path "/var/spool/cron/root"
-  action :create
-  owner "root"
-  group "root"
-  mode "0600"
-end
-
-
-# Create the NAT monitor script
-template "/etc/nat_monitor.sh" do
-  action :create
-  source "nat_monitor.sh.erb"
-  variables({
-    :partner_id => node[:private_settings][:nat][node['hostname']][:partner_id],
-    :partner_route => node[:private_settings][:nat][node['hostname']][:partner_route],
-    :my_route => node[:private_settings][:nat][node['hostname']][:my_route],
-    :ec2_url => node[:private_settings][:nat][:ec2_url]
-  })
-  owner "root"
-  group "root"
-  mode "0700"
-end
-
-
-# Create the NAT monitor log directory
-directory "/var/log/nat_monitor" do
-  owner 'root'
-  group 'root'
-  mode '0755'
-  action :create
-end
-
-
-# Kill the NAT monitor script
-execute "Kill NAT Monitor Script" do
-  command "pkill -f nat_monitor"
-  returns [0, 1]
-end
-
-
-# Start the NAT monitor script
-execute "Start NAT Monitor Script" do
-  command "/etc/nat_monitor.sh >>/var/log/nat_monitor/nat_monitor.log &"
-end
+include_recipe "opsworks-nat-instance::setup_nat"
+include_recipe "opsworks-nat-instance::setup_monitor"
