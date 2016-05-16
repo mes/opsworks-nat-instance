@@ -1,7 +1,7 @@
 # nat-instance Cookbook
 
 The purpose of this cookbook is to build and maintain two NAT instances in an Amazon AWS multi-availability zone environment.
-
+This fork integrates the scripts found on the Amazon NAT instance and adds support for Ubuntu 14.04 LTS -- in this manner, it becomes independent of the original AMIs (which aren't compatible with the current OpsWorks client as of 2016-05).
 
 ## Assumptions
 
@@ -13,7 +13,7 @@ The purpose of this cookbook is to build and maintain two NAT instances in an Am
 
 ## Requirements
 
-- Amazon Linux (tested on 2015.03)
+- Ubuntu 14.04 LTS (Amazon Linux is untested at this point)
 - Chef (tested on 11.10)
 - Berkshelf (tested on 3.2.0)
 
@@ -22,7 +22,6 @@ The purpose of this cookbook is to build and maintain two NAT instances in an Am
 
 NOTE: You will not be able to create functional route tables, nor populate the stack custom JSON until the two NAT instances are actually provisioned (because you need their instance IDs).  Once the NAT instances are provisioned, you will use this recipe to keep them properly running and configured.
 
-- Create a NAT instance AMI using an Amazon Linux AMI from the Amazon marketplace (these instances always include the string amzn-ami-vpc-nat).
 - Setup the following custom JSON in the OpsWorks stack that controls your NAT instances.  The names `nat-instance-2a` and `nat-instance-2b` are the hostnames of the two NAT instances (in this case, one in availability zone 2a and one in availability zone 2b) but you may substitute any names here as long as they match your NAT instance hostnames.  The `ec2-url` must match the region within which you are provisioning the nat instances:
 ```json
 {
@@ -67,7 +66,7 @@ NOTE: You will not be able to create functional route tables, nor populate the s
 ```text
 cookbook 'opsworks-nat-instance', git: 'git://github.com/tomalessi/opsworks-nat-instance.git'
 ```
-- Provision two NAT instances from the OpsWorks console using the AMI you created earlier within the NAT instance stack/layer, one in each AZ in the Internet accessible subnet.
+- Provision instances from the OpsWorks console within the NAT instance stack/layer, one in each AZ in the Internet accessible subnet.
 - After the instances are provisioned, disable source/destination checks.
 - Populate the partner_id, partner_route and my_route for each NAT instance in the stack custom JSON and run the `setup` lifecycle event on the instances.
 
@@ -80,6 +79,7 @@ cookbook 'opsworks-nat-instance', git: 'git://github.com/tomalessi/opsworks-nat-
 ## License and Authors
 
 - Author: Tom Alessi (tom.alessi@gmail.com)
+- Author: Christian Becker (c.becker@mes-info.de) (integrated AWS NAT scripts)
 - Author: Unknown author created the AWS nat_instance.sh monitor script
 
 ```text
