@@ -16,7 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+package "ec2-api-tools" do
+  action :upgrade
+end
 
 # Copy root crontab into place
 cookbook_file "root_crontab" do

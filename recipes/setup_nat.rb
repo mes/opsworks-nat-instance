@@ -26,6 +26,10 @@ cookbook_file "10-nat-settings.conf" do
   mode "0644"
 end
 
+execute "reload sysctl configuration" do
+ command "/sbin/sysctl --system"
+end
+
 # Copy NAT script into place
 cookbook_file "configure-pat.sh" do
   path "/usr/sbin/configure-pat.sh"
