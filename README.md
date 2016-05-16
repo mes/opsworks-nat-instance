@@ -40,10 +40,11 @@ NOTE: You will not be able to create functional route tables, nor populate the s
       },
       "ec2_url": "https://ec2.us-west-2.amazonaws.com"
     }
+  }
 }
 ```
 - Create a layer within the OpsWorks stack that will be responsible for your NAT instances.  Configure the layer to provide an elastic IP to each provisioned instance.
-- Include the following policy in the OpsWorks stack instance profile associated with the NAT instance stack/layer so that NAT instances can manage routes:
+- Include the following policy in the OpsWorks stack instance profile associated with the NAT instance stack/layer so that NAT instances can manage routes. If you use the default role, you will need to create a new IAM policy at https://console.aws.amazon.com/iam/home#policies and associate it with a new EC2 role at https://console.aws.amazon.com/iam/home#roles:
 ```json
 {
   "Version": "2012-10-17",
