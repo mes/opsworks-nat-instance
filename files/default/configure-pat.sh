@@ -38,6 +38,7 @@ log "Enabling PAT..."
 
 sysctl net.ipv4.ip_forward net.ipv4.conf.eth0.send_redirects | log
 iptables -n -t nat -L POSTROUTING | log
+ethtool -K eth0 sg off | log
 
 log "Configuration of PAT complete."
 
