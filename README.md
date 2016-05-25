@@ -55,7 +55,8 @@ NOTE: You will not be able to create functional route tables, nor populate the s
         "ec2:CreateRoute",
         "ec2:ReplaceRoute",
         "ec2:StartInstances",
-        "ec2:StopInstances"
+        "ec2:StopInstances",
+        "ec2:ModifyInstanceAttribute"
       ],
       "Effect": "Allow",
       "Resource": "*"
@@ -74,13 +75,13 @@ cookbook 'opsworks-nat-instance', git: 'git://github.com/tomalessi/opsworks-nat-
 
 ## To Do
 
-- Disable source/destionation checks on NAT instances using the AWS SDK as part of the recipe.
+- Automatically find peer via OpsWorks
 
 
 ## License and Authors
 
 - Author: Tom Alessi (tom.alessi@gmail.com)
-- Author: Christian Becker (c.becker@mes-info.de) (integrated AWS NAT scripts)
+- Author: Christian Becker (c.becker@mes-info.de) (integrated AWS NAT scripts, disabling of source/destination checks)
 - Author: Unknown author created the AWS nat_instance.sh monitor script
 
 ```text

@@ -31,9 +31,12 @@ execute "reload sysctl configuration" do
 end
 
 # Copy NAT script into place
-cookbook_file "configure-pat.sh" do
-  path "/usr/sbin/configure-pat.sh"
+template "/usr/sbin/configure-pat.sh" do
   action :create
+  source "configure-pat.sh.erb"
+  variables({
+    :ec2_url => node[:private_settings][:nat][:ec2_url]
+  })
   owner "root"
   group "root"
   mode "0744"

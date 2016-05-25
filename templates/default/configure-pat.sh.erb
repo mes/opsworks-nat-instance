@@ -2,6 +2,10 @@
 # Configure the instance to run as a Port Address Translator (PAT) to provide
 # Internet connectivity to private instances.
 # Source: Amazon's amzn-ami-vpc-nat-hvm-2016.03.1.x86_64-ebs
+# Modified to disable source / destination check on startup (requires IAM role with permission ec2:ModifyInstanceAttribute).
+
+# Specify the EC2 region that this will be running in (e.g. https://ec2.us-east-1.amazonaws.com)
+EC2_URL=<%= @ec2_url %>
 
 function log { logger -s -t "vpc" -- $1; }
 
@@ -39,6 +43,10 @@ log "Enabling PAT..."
 sysctl net.ipv4.ip_forward net.ipv4.conf.eth0.send_redirects | log
 iptables -n -t nat -L POSTROUTING | log
 ethtool -K eth0 sg off | log
+
+log "Disabling source / destination check"
+INSTANCE_ID=`/usr/bin/curl --retry 3 --silent --fail http://169.254.169.254/latest/meta-data/instance-id`
+ec2-modify-instance-attribute ${INSTANCE_ID} -U ${EC2_URL} --source-dest-check false | log
 
 log "Configuration of PAT complete."
 

@@ -99,7 +99,7 @@ while [ . ]; do
       fi
       <% else %>
       # Assume instance is restarted elsewhere, e.g. manually or via OpsWorks auto-healing
-      # TODO get partner via OpsWorks
+      # TODO Automatically find partner via OpsWorks -- its instance ID may change, notably when OpsWorks auto-healing completely scraps the old instance
       sleep $Wait_for_Instance_Start
       NAT_HEALTHY=1
       <% end %>
