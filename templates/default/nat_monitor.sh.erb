@@ -78,6 +78,7 @@ while [ . ]; do
         ec2-replace-route $NAT_RT_ID -r 0.0.0.0/0 -i $Instance_ID -U $EC2_URL
         ROUTE_HEALTHY=1
       fi
+      <% if @reboot_failed_partner %>
       # Check NAT state to see if we should stop it or start it again
       # This sample script works well with EC2 API tools version 1.6.12.2 2013-10-15.
       # If you are using a different version and your script is stuck at NAT_STATE, please modify
@@ -96,6 +97,12 @@ while [ . ]; do
         fi
         sleep $Wait_for_Instance_Stop
       fi
+      <% else %>
+      # Assume instance is restarted elsewhere, e.g. manually or via OpsWorks auto-healing
+      # TODO get partner via OpsWorks
+      sleep $Wait_for_Instance_Start
+      NAT_HEALTHY=1
+      <% end %>
     done
   else
     sleep $Wait_Between_Pings

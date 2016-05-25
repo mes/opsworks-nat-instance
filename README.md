@@ -37,7 +37,8 @@ NOTE: You will not be able to create functional route tables, nor populate the s
         "partner_route": "rtb-yyyyyyyy",
         "my_route": "rtb-xxxxxxxx"
       },
-      "ec2_url": "https://ec2.us-west-2.amazonaws.com"
+      "ec2_url": "https://ec2.us-west-2.amazonaws.com",
+      "reboot_failed_partner": true
     }
   }
 }

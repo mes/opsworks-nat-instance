@@ -38,7 +38,8 @@ template "/etc/nat_monitor.sh" do
     :partner_id => node[:private_settings][:nat][node['hostname']][:partner_id],
     :partner_route => node[:private_settings][:nat][node['hostname']][:partner_route],
     :my_route => node[:private_settings][:nat][node['hostname']][:my_route],
-    :ec2_url => node[:private_settings][:nat][:ec2_url]
+    :ec2_url => node[:private_settings][:nat][:ec2_url],
+    :reboot_failed_partner => node[:private_settings][:nat][:reboot_failed_partner],
   })
   owner "root"
   group "root"
