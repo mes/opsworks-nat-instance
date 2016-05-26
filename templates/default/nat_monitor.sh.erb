@@ -48,6 +48,9 @@ fi
 #    }
 #  ]
 # }
+#
+# Note: configure-pat.sh requires "ec2:ModifyInstanceAttribute" on top of the permissions listed above
+#       in order to disable the source/destination checks.
 
 # Get this instance's ID
 Instance_ID=`/usr/bin/curl --silent http://169.254.169.254/latest/meta-data/instance-id`
