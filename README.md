@@ -64,7 +64,7 @@ NOTE: You will not be able to create functional route tables, nor populate the s
   ]
 }
 ```
-- Include this recipe as part of the `setup` lifecycle event in the NAT instance layer.  You will need to reference this recipe in your Berksfile:
+- In the NAT instance layer, include `opsworks-nat-instance::default` as part of the `setup` lifecycle event and `opsworks-nat-instance::configure` within the `configure` lifecycle event. You will need to reference this recipe in your Berksfile:
 ```text
 cookbook 'opsworks-nat-instance', git: 'git://github.com/tomalessi/opsworks-nat-instance.git'
 ```
