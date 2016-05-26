@@ -28,12 +28,10 @@ NOTE: You will not be able to create functional route tables, nor populate the s
   "private_settings": {
     "nat": {
       "nat-instance-2a": {
-        "partner_id": "i-xxxxxxxx",
         "partner_route": "rtb-xxxxxxxx",
         "my_route": "rtb-yyyyyyyy"
       },
       "nat-instance-2b": {
-        "partner_id": "i-yyyyyyyy",
         "partner_route": "rtb-yyyyyyyy",
         "my_route": "rtb-xxxxxxxx"
       },
@@ -51,6 +49,7 @@ NOTE: You will not be able to create functional route tables, nor populate the s
   "Statement": [
     {
       "Action": [
+        "ec2:DescribeRouteTables",
         "ec2:DescribeInstances",
         "ec2:CreateRoute",
         "ec2:ReplaceRoute",
@@ -70,13 +69,7 @@ cookbook 'opsworks-nat-instance', git: 'git://github.com/tomalessi/opsworks-nat-
 ```
 - Provision instances from the OpsWorks console within the NAT instance stack/layer, one in each AZ in the Internet accessible subnet.
 - After the instances are provisioned, disable source/destination checks.
-- Populate the partner_id, partner_route and my_route for each NAT instance in the stack custom JSON and run the `setup` lifecycle event on the instances.
-
-
-## To Do
-
-- Automatically find peer via OpsWorks
-
+- Populate the partner_route and my_route for each NAT instance in the stack custom JSON and run the `setup` lifecycle event on the instances.
 
 ## License and Authors
 
